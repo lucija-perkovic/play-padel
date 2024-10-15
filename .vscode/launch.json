@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PadelApplication<padel>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "progi.padel.PadelApplication",
+            "projectName": "padel",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

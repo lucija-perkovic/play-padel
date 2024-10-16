@@ -1,4 +1,4 @@
-export interface Models {
+export interface Owner {
     name: string;
     address: string;
     phoneNumber: number;

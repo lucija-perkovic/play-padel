@@ -16,10 +16,47 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 > Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
 
 # Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
+1. sustav mora omogućiti stvaranje administratora
+2. sustav mora administratorima omogućiti postavljanje cijene članstva
+3. sustav mora administratorima omogućiti CRUD operacije nad korisnicima (create, read, update, delete)
+4. sustav mora korisnicima omogućiti registraciju kao igrač ili kao vlasnik terena
+5. sustav mora vlasnicima terena omogućiti plaćanje godišnje članarine PayPalom ili kreditnom karticom
+6. sustav mora moći prikazati javni profil vlasnika dvorana sa osnovnim podacima (naziv, adresa, kontakt telefon, popis svih oglašenih terena i turnira)
+7. sustav mora vlasnicima terena omogućiti organizaciju turnira sljedećim podacima: naziv, lokacija, datum, cijena kotizacije, nagrade, opis
+8. sustav mora vlasnicima terena omogućiti da turniru čiji je datum došao ili prošao postave rezultate i dodaju fotografije sa turnira
+9. sustav mora igračima omogućiti pregled termina terena
+10. sustav mora igračima omogućiti rezervaciju termina terena
+11. sustav mora igračima omogućiti odabir načina plaćanja za rezervaciju termina terena (gotovinom prilikom korištenja, PayPalom ili kreditnom karticom)
+12. sustav mora igračima omogućiti otkazivanje rezervacije terena ako termin nije u sljedeća 24 sata
+13. sustav mora igračima omogućiti pregled turnira temeljem sljedećih kategorija: cijena kotizacije, razina igrača, iznos nagrade
+14. sustav mora igračima omogućiti prijavu na otvorene turnire
+15. sustav mora organizatoru turnira omogućiti odobravanje prijava pristiglih od strane igrača
+16. sustav mora igrače obavijestiti o odobrenoj prijavi na turnir
+17. sustav mora igračima koji su sudjelovali na turniru omogućiti postavljanje komentara i fotografija na odigrane mečeve
+18. sustav mora omogućiti igračima pretplatu na obavijesti o turnirima
+19. sustav mora igračima pretplaćenim na obavijesti o turnirima poslati obavijest za svaki novoobjavljeni turnir
+
+# Nefunkcijski zahtjevi
+1. sustav mora funkcionirati na preglednicima Google Chrome, Firefox i Safari
+2. sustav mora za pregled i rezervaciju termina koristiti vanjsku uslugu kalendara
+3. sustav mora omogućiti igračima rezervaciju termina u 3 klika od naslovne stranice ne računajući odabir načina plaćanja
+4. sustav mora postavljene turnire objavini unutar 5 minuta od postavljanja
+5. sustav za prijave na turnir mora u manje od 10 sekundi dati povratnu informaciju (npr. prijava uspješna: čeka se potvrda organizatora)
+6. sustav mora biti dostupan 24 sata dnevno
+7. sustav treba osigurati zaštitu podataka prilikom plaćanja
+8. sustav treba osigurati zaštitu podataka korisnika pri radu s aplikacijom
 
 
 # Tehnologije
+- backend:
+  - Python3
+  - fastAPI
+  - MongoDB
+- frontend: 
+  - React
+  - TypeScript
+  - TailwindCSS
+  - Next.js
 
 #Instalcija
 # Članovi tima 

@@ -45,6 +45,7 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 6. sustav mora biti dostupan 24 sata dnevno
 7. sustav treba osigurati zaštitu podataka prilikom plaćanja
 8. sustav treba osigurati zaštitu podataka korisnika pri radu s aplikacijom
+9. sustav za autentifikaciju mora koristiti OAuth2.0 standard
 
 
 # Tehnologije

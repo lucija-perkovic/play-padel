@@ -17,24 +17,33 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 
 # Funkcijski zahtjevi
 1. sustav mora omogućiti stvaranje administratora
-2. sustav mora administratorima omogućiti postavljanje cijene članstva
-3. sustav mora administratorima omogućiti CRUD operacije nad korisnicima (create, read, update, delete)
-4. sustav mora korisnicima omogućiti registraciju kao igrač ili kao vlasnik terena
-5. sustav mora vlasnicima terena omogućiti plaćanje godišnje članarine PayPalom ili kreditnom karticom
-6. sustav mora moći prikazati javni profil vlasnika dvorana sa osnovnim podacima (naziv, adresa, kontakt telefon, popis svih oglašenih terena i turnira)
-7. sustav mora vlasnicima terena omogućiti organizaciju turnira sljedećim podacima: naziv, lokacija, datum, cijena kotizacije, nagrade, opis
-8. sustav mora vlasnicima terena omogućiti da turniru čiji je datum došao ili prošao postave rezultate i dodaju fotografije sa turnira
-9. sustav mora igračima omogućiti pregled termina terena
-10. sustav mora igračima omogućiti rezervaciju termina terena
-11. sustav mora igračima omogućiti odabir načina plaćanja za rezervaciju termina terena (gotovinom prilikom korištenja, PayPalom ili kreditnom karticom)
-12. sustav mora igračima omogućiti otkazivanje rezervacije terena ako termin nije u sljedeća 24 sata
-13. sustav mora igračima omogućiti pregled turnira temeljem sljedećih kategorija: cijena kotizacije, razina igrača, iznos nagrade
-14. sustav mora igračima omogućiti prijavu na otvorene turnire
-15. sustav mora organizatoru turnira omogućiti odobravanje prijava pristiglih od strane igrača
-16. sustav mora igrače obavijestiti o odobrenoj prijavi na turnir
-17. sustav mora igračima koji su sudjelovali na turniru omogućiti postavljanje komentara i fotografija na odigrane mečeve
-18. sustav mora omogućiti igračima pretplatu na obavijesti o turnirima
-19. sustav mora igračima pretplaćenim na obavijesti o turnirima poslati obavijest za svaki novoobjavljeni turnir
+2. svi korisnici
+    - mogu pregledavati termine terena
+    - mogu pregledavati turnire temeljem sljedećih kategorija: cijena kotizacije, razina igrača, iznos nagrade
+3. anonimni korisnici
+    - mogu se registrirati kao vlasnik terena ili kao igrač
+
+4. administratori
+    - mogu postavljati cijenu članstva za vlasnike terena
+    - mogu stvarati korisnike (igrače i vlasnike terena)
+    - mogu pregledavati korisnike
+    - mogu mijenjati korisničke podatke
+    - mogu brisati korisnike
+5. vlasnici terena
+    - mogu godišnju članarinu plaćati PayPalom ili kreditnom karticom
+    - imaju javni profil sa osnovnim podacima (naziv, adresa, kontakt telefon, popis svih oglašenih terena i turnira)
+    - mogu organizirati turnire sljedećim podacima: naziv, lokacija, datum, cijena kotizacije, nagrade, opis
+    - turniru čiji je datum došao ili prošao mogu postaviti rezultate i dodati fotografije sa turnira
+    - odobravaju prijave igrača za turnire koje su organizirali
+6. igrači
+    - mogu rezervirati termin terena
+    - mogu odabrati način plaćanja rezervacije termina terena (gotovinom prilikom korištenja, PayPalom ili kreditnom karticom)
+    - mogu otkazati rezervacije terena ako termin nije u sljedeća 24 sata
+    - mogu se prijaviti na otvorene turnire
+    - dobivaju obavijest o odobrenoj/odbijenoj prijavi na turnir
+    - na odigrane mečeve turnira mogu postavljati komentare i fotografije
+    - se mogu pretplatiti na obavijesti o novoobjavljenim turnirima
+
 
 # Nefunkcijski zahtjevi
 1. sustav mora funkcionirati na preglednicima Google Chrome, Firefox i Safari

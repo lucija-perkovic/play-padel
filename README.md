@@ -71,7 +71,11 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 #Instalcija
 # Članovi tima 
 > Popis članova tima/linkovi/ glavni doprinos
->
+- Vinko Grančić
+- Lucija Perković
+- Mihael Kukelšćak
+- Luka Oković
+- Ivan Šimunić
 
 # Kontribucije
 >Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md

@@ -1,14 +1,15 @@
+import os
+
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from pymongo.collection import Collection
+from dotenv import load_dotenv
 
-MONGO_URI = "mongodb+srv://<username>:<password>@play-padel-cluster.bq1gt.mongodb.net/?retryWrites=true&w=majority&appName=play-padel-cluster"
-MONGO_DB = "play-padel-database-1"
-MONGO_COLLECTION = "play-padel-collection-1"
+load_dotenv()
 
-client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
-database = client[MONGO_DB]
-collection: Collection = database[MONGO_COLLECTION]
+client = MongoClient(os.getenv("MONGO_URI"), server_api=ServerApi('1'))
+database = client[os.getenv("MONGO_DB")]
+collection: Collection = database[os.getenv("MONGO_DB")]
 
 try:
     client.admin.command('ping')

@@ -16,15 +16,66 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 > Dobro izrađen opis omogućuje vam da pokažete svoj rad drugim programerima, kao i potencijalnim poslodavcima. Ne samo da prvi dojam na stranici opisa često razlikuje dobar projekt od lošeg projekta već i predstavlja dobru praksu koju morate savladati.
 
 # Funkcijski zahtjevi
-> Navedite ključne zahtjeve Vašeg projekta.
+1. sustav mora omogućiti stvaranje administratora
+2. svi korisnici
+    - mogu pregledavati termine terena
+    - mogu pregledavati turnire temeljem sljedećih kategorija: cijena kotizacije, razina igrača, iznos nagrade
+3. anonimni korisnici
+    - mogu se registrirati kao vlasnik terena ili kao igrač
+
+4. administratori
+    - mogu postavljati cijenu članstva za vlasnike terena
+    - mogu stvarati korisnike (igrače i vlasnike terena)
+    - mogu pregledavati korisnike
+    - mogu mijenjati korisničke podatke
+    - mogu brisati korisnike
+5. vlasnici terena
+    - mogu godišnju članarinu plaćati PayPalom ili kreditnom karticom
+    - imaju javni profil sa osnovnim podacima (naziv, adresa, kontakt telefon, popis svih oglašenih terena i turnira)
+    - mogu organizirati turnire sljedećim podacima: naziv, lokacija, datum, cijena kotizacije, nagrade, opis
+    - turniru čiji je datum došao ili prošao mogu postaviti rezultate i dodati fotografije sa turnira
+    - odobravaju prijave igrača za turnire koje su organizirali
+6. igrači
+    - mogu rezervirati termin terena
+    - mogu odabrati način plaćanja rezervacije termina terena (gotovinom prilikom korištenja, PayPalom ili kreditnom karticom)
+    - mogu otkazati rezervacije terena ako termin nije u sljedeća 24 sata
+    - mogu se prijaviti na otvorene turnire
+    - dobivaju obavijest o odobrenoj/odbijenoj prijavi na turnir
+    - na odigrane mečeve turnira mogu postavljati komentare i fotografije
+    - se mogu pretplatiti na obavijesti o novoobjavljenim turnirima
+
+
+# Nefunkcijski zahtjevi
+1. sustav mora funkcionirati na preglednicima Google Chrome, Firefox i Safari
+2. sustav mora za pregled i rezervaciju termina koristiti vanjsku uslugu kalendara
+3. sustav mora omogućiti igračima rezervaciju termina u 3 klika od naslovne stranice ne računajući odabir načina plaćanja
+4. sustav mora postavljene turnire objavini unutar 5 minuta od postavljanja
+5. sustav za prijave na turnir mora u manje od 10 sekundi dati povratnu informaciju (npr. prijava uspješna: čeka se potvrda organizatora)
+6. sustav mora biti dostupan 24 sata dnevno
+7. sustav treba osigurati zaštitu podataka prilikom plaćanja
+8. sustav treba osigurati zaštitu podataka korisnika pri radu s aplikacijom
+9. sustav za autentifikaciju mora koristiti OAuth2.0 standard
 
 
 # Tehnologije
+- backend:
+  - Python3
+  - fastAPI
+  - MongoDB
+- frontend: 
+  - React
+  - TypeScript
+  - TailwindCSS
+  - Next.js
 
 #Instalcija
 # Članovi tima 
 > Popis članova tima/linkovi/ glavni doprinos
->
+- Vinko Grančić
+- Lucija Perković
+- Mihael Kukelšćak
+- Luka Oković
+- Ivan Šimunić
 
 # Kontribucije
 >Pravila ovise o organizaciji tima i su često izdvojena u CONTRIBUTING.md

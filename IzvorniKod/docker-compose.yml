@@ -1,0 +1,44 @@
+services:
+  db:
+    image: mongo:latest
+    volumes:
+      - app-db-data:/data/db
+    env_file:
+      - .env
+    ports:
+      - "${MONGO_PORT}:${MONGO_PORT}"
+    environment:
+      - "MONGO_INITDB_DATABASE=${MONGO_DB}"
+      - "MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}"
+      - "MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}"
+  backend:
+    image: backend
+    container_name: backend
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_HOST=db
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command:
+      - fastapi
+      - run
+      - --reload
+      - "app/main.py"
+  frontend:
+    image: frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+      args:
+        FRONTEND_ENV: dev
+volumes:
+  app-db-data:

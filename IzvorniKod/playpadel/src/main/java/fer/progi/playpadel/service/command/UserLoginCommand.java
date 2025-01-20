@@ -8,6 +8,9 @@ public class UserLoginCommand {
     @JsonProperty("password")
     private String password;
 
+    public UserLoginCommand() {
+    }
+
     public UserLoginCommand(String username, String password) {
         this.username = username;
         this.password = password;

@@ -13,6 +13,12 @@ public class CreateBookingCommand {
     @JsonProperty("endBookingTime")
     private Timestamp endBookingTime;
 
+    public CreateBookingCommand(Long bookingUserId, Timestamp startBookingTime, Timestamp endBookingTime) {
+        this.bookingUserId = bookingUserId;
+        this.startBookingTime = startBookingTime;
+        this.endBookingTime = endBookingTime;
+    }
+
     public Long getBookingUserId() {
         return bookingUserId;
     }

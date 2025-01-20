@@ -23,6 +23,9 @@ public class UserRegisterCommand {
     @JsonProperty("padelHallName")
     private String padelHallName;
 
+    public UserRegisterCommand() {
+    }
+
     public String getUsername() {
         return username;
     }

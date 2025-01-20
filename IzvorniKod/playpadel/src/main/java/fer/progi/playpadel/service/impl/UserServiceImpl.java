@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PlayPadelRepository playPadelRepository;
 
-    private static final String PHONE_NUMBER_REGEX = "^\\d{10}$"; // Adjust the pattern as needed
+    private static final String PHONE_NUMBER_REGEX = "^\\d{10}$";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
 
     @Autowired
@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void login(UserLoginCommand command) {
+        if (command.getUsername() == null || command.getPassword() == null) {
+            throw new InvalidLoginException();
+        }
         final Optional<PlayPadelUser> playPadelUser = playPadelRepository.findPlayPadelUserByUsernameAndPassword(command.getUsername(), command.getPassword());
         if (playPadelUser.isEmpty()) {
             LOGGER.info("Invalid login credentials for username {} and password {}", command.getUsername(), command.getPassword());
@@ -47,6 +50,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserRegisterCommand command) {
+        if (command.getUsername() == null || command.getPassword() == null || command.getUserType() == null) {
+            throw new InvalidLoginException();
+        }
         final Optional<PlayPadelUser> existingPlayPadelUser = playPadelRepository.findPlayPadelUserByUsernameAndPassword(command.getUsername(), command.getPassword());
         if (existingPlayPadelUser.isPresent()) {
             LOGGER.info("User is already registered");

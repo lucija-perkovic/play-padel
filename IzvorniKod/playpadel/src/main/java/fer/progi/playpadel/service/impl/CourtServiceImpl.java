@@ -107,8 +107,7 @@ public class CourtServiceImpl implements CourtService {
         }
     }
 
-    private boolean isBookingSlotAvailable(List<PadelCourtBooking> padelCourtBookingList, Timestamp commandStart, Timestamp commandEnd) {
-        // Extract time from the command start and end
+    public boolean isBookingSlotAvailable(List<PadelCourtBooking> padelCourtBookingList, Timestamp commandStart, Timestamp commandEnd) {
         LocalTime commandStartTime = commandStart.toLocalDateTime().toLocalTime();
         LocalTime commandEndTime = commandEnd.toLocalDateTime().toLocalTime();
 
@@ -116,17 +115,13 @@ public class CourtServiceImpl implements CourtService {
             Timestamp startBookingTime = booking.getStartBookingTime();
             Timestamp endBookingTime = booking.getEndBookingTime();
 
-            // Extract time from the booking start and end times
             LocalTime bookingStartTime = startBookingTime.toLocalDateTime().toLocalTime();
             LocalTime bookingEndTime = endBookingTime.toLocalDateTime().toLocalTime();
 
-            // Check if there is an overlap (start or end time is between the command times)
             if (!(commandEndTime.isBefore(bookingStartTime) || commandStartTime.isAfter(bookingEndTime))) {
-                // Overlap found
                 return false;
             }
         }
-        // No overlap found
         return true;
     }
 }

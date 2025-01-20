@@ -16,6 +16,13 @@ public class CreateCourtCommand {
     @JsonProperty("closingTime")
     private Timestamp closingTime;
 
+    public CreateCourtCommand(String location, CourtType courtType, Timestamp openingTime, Timestamp closingTime) {
+        this.location = location;
+        this.courtType = courtType;
+        this.openingTime = openingTime;
+        this.closingTime = closingTime;
+    }
+
     public String getLocation() {
         return location;
     }

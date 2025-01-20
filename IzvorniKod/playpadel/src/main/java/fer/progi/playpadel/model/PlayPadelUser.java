@@ -38,6 +38,12 @@ public class PlayPadelUser {
     public PlayPadelUser() {
     }
 
+    public PlayPadelUser(String username, String password, UserType userType) {
+        this.username = username;
+        this.password = password;
+        this.userType = userType;
+    }
+
     public PlayPadelUser(String username, String password, String firstName, String lastName, UserType userType, String contactNumber, String address, String padelHallName) {
         this.username = username;
         this.password = password;
@@ -47,6 +53,14 @@ public class PlayPadelUser {
         this.contactNumber = contactNumber;
         this.address = address;
         this.padelHallName = padelHallName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {

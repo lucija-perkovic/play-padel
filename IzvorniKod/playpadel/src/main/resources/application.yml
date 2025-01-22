@@ -11,12 +11,10 @@ spring:
       max-file-size: 256MB
       max-request-size: 256MB
   datasource:
-    spring:
-      datasource:
-        url: jdbc:postgresql://dpg-cu8llhjqf0us73d3rj3g-a.frankfurt-postgres.render.com/playpadeldb
-        username: playpadeldb_user
-        password: Psw3BdNqUHPiVyyuuUgUYOlM88DJEUaZ
-        driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dpg-cu8llhjqf0us73d3rj3g-a.frankfurt-postgres.render.com/playpadeldb
+    username: playpadeldb_user
+    password: Psw3BdNqUHPiVyyuuUgUYOlM88DJEUaZ
+    driver-class-name: org.postgresql.Driver
     tomcat:
       initial-size: 10
       max-active: 30

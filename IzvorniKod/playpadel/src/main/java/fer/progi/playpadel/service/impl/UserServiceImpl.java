@@ -9,51 +9,70 @@ import fer.progi.playpadel.repository.PlayPadelRepository;
 import fer.progi.playpadel.service.UserService;
 import fer.progi.playpadel.service.command.UserLoginCommand;
 import fer.progi.playpadel.service.command.UserRegisterCommand;
+import fer.progi.playpadel.service.dto.LoginDto;
 import fer.progi.playpadel.service.dto.UserDto;
+import fer.progi.playpadel.util.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
     private final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private final PlayPadelRepository playPadelRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     private static final String PHONE_NUMBER_REGEX = "^\\d{10}$";
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(PHONE_NUMBER_REGEX);
 
     @Autowired
-    public UserServiceImpl(PlayPadelRepository playPadelRepository) {
+    public UserServiceImpl(PlayPadelRepository playPadelRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.playPadelRepository = playPadelRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
-    public void login(UserLoginCommand command) {
+    public LoginDto login(UserLoginCommand command) {
         if (command.getUsername() == null || command.getPassword() == null) {
             throw new InvalidLoginException();
         }
-        final Optional<PlayPadelUser> playPadelUser = playPadelRepository.findPlayPadelUserByUsernameAndPassword(command.getUsername(), command.getPassword());
+        final Optional<PlayPadelUser> playPadelUser = playPadelRepository.findPlayPadelUserByUsername(command.getUsername());
         if (playPadelUser.isEmpty()) {
             LOGGER.info("Invalid login credentials for username {} and password {}", command.getUsername(), command.getPassword());
-            throw new InvalidLoginException();
         } else {
-            LOGGER.info("Successfully logged in for username {} and password {}", command.getUsername(), command.getPassword());
+            if (passwordEncoder.matches(command.getPassword(), playPadelUser.get().getPassword())) {
+                String token = jwtUtil.generateToken(playPadelUser.get().getUsername());
+                LOGGER.info("Successfully logged in for username {} and password {}", command.getUsername(), command.getPassword());
+                final PlayPadelUser user = playPadelUser.get();
+                return new LoginDto(token, new UserDto(user.getId(),
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getUserType(),
+                        user.getContactNumber(),
+                        user.getAddress(),
+                        user.getPadelHallName()));
+            }
+
         }
+        throw new InvalidLoginException();
     }
+
 
     @Override
     public void register(UserRegisterCommand command) {
         if (command.getUsername() == null || command.getPassword() == null || command.getUserType() == null) {
             throw new InvalidLoginException();
         }
-        final Optional<PlayPadelUser> existingPlayPadelUser = playPadelRepository.findPlayPadelUserByUsernameAndPassword(command.getUsername(), command.getPassword());
+        final Optional<PlayPadelUser> existingPlayPadelUser = playPadelRepository.findPlayPadelUserByUsername(command.getUsername());
         if (existingPlayPadelUser.isPresent()) {
             LOGGER.info("User is already registered");
             throw new UserAlreadyRegisteredException();
@@ -67,7 +86,7 @@ public class UserServiceImpl implements UserService {
             LOGGER.info("Saving user {}", command.getUsername());
             final PlayPadelUser playPadelUser = new PlayPadelUser(
                     command.getUsername(),
-                    command.getPassword(),
+                    passwordEncoder.encode(command.getPassword()),
                     command.getFirstName(),
                     command.getLastName(),
                     command.getUserType(),
@@ -76,7 +95,6 @@ public class UserServiceImpl implements UserService {
                     command.getPadelHallName()
             );
             playPadelRepository.save(playPadelUser);
-
         }
     }
 
@@ -91,6 +109,7 @@ public class UserServiceImpl implements UserService {
         if (playPadelUserList.isPresent()) {
             List<UserDto> playPadelUsers;
             playPadelUsers = playPadelUserList.get().stream().map(playPadelUser -> new UserDto(
+                    playPadelUser.getId(),
                     playPadelUser.getFirstName(),
                     playPadelUser.getLastName(),
                     playPadelUser.getUserType(),

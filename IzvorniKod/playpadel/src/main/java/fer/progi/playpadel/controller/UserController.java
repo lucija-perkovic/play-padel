@@ -1,10 +1,9 @@
 package fer.progi.playpadel.controller;
 
-import fer.progi.playpadel.repository.PlayPadelRepository;
 import fer.progi.playpadel.service.UserService;
 import fer.progi.playpadel.service.command.UserLoginCommand;
 import fer.progi.playpadel.service.command.UserRegisterCommand;
-import fer.progi.playpadel.service.impl.UserServiceImpl;
+import fer.progi.playpadel.service.dto.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody UserLoginCommand command) {
+    public ResponseEntity<LoginDto> login(@RequestBody UserLoginCommand command) {
         try {
-            userService.login(command);
-            return ResponseEntity.ok(null); // 200
-        } catch(Exception e) {
+            return ResponseEntity.ok(userService.login(command)); // 200
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null); // 400
         }
     }
@@ -34,7 +32,7 @@ public class UserController {
         try {
             userService.register(command);
             return ResponseEntity.ok(null); // 200
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null); // 400
         }
     }
@@ -44,7 +42,7 @@ public class UserController {
         try {
             userService.delete(id);
             return ResponseEntity.ok(null); // 200
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null); // 400
         }
     }
@@ -53,7 +51,7 @@ public class UserController {
     public ResponseEntity<Object> getAllUsers() {
         try {
             return ResponseEntity.ok(userService.getAllUsers()); // 200
-        } catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(null); // 400
         }
     }

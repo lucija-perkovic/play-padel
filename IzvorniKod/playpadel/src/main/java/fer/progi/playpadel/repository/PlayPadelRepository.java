@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface PlayPadelRepository extends JpaRepository<PlayPadelUser, Long> {
-    Optional<PlayPadelUser> findPlayPadelUserByUsernameAndPassword(String username, String password);
+    Optional<PlayPadelUser> findPlayPadelUserByUsername(String username);
     Optional<List<PlayPadelUser>> findByUserTypeNot(UserType userType);
 }

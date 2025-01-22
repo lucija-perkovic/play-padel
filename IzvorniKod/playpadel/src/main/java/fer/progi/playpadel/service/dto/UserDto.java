@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import fer.progi.playpadel.enumeration.UserType;
 
 public class UserDto {
+    @JsonProperty("id")
+    private Long id;
     @JsonProperty("firstName")
     private String firstName;
     @JsonProperty("lastName")
@@ -17,13 +19,22 @@ public class UserDto {
     @JsonProperty("padelHallName")
     private String padelHallName;
 
-    public UserDto(String firstName, String lastName, UserType userType, String contactNumber, String address, String padelHallName) {
+    public UserDto(Long id, String firstName, String lastName, UserType userType, String contactNumber, String address, String padelHallName) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userType = userType;
         this.contactNumber = contactNumber;
         this.address = address;
         this.padelHallName = padelHallName;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

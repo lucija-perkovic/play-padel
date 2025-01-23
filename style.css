@@ -1,0 +1,76 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  h1, h2 {
+    color: #333;
+  }
+  
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  
+  form div {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px; /* Manji padding za manji gumb */
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Gumb zauzima cijelu širinu */
+    font-size: 14px; /* Manji font za kompaktniji izgled */
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button.secondary {
+    background-color: #6c757d;
+  }
+  
+  button.secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .auth-buttons {
+    display: flex;
+    flex-direction: column; /* Postavlja gumbe jedan ispod drugog */
+    gap: 10px; /* Razmak između gumba */
+    margin-top: 20px; /* Razmak od ostatka sadržaja */
+  }
+  
+  

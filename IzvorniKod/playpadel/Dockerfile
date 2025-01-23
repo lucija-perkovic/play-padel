@@ -7,13 +7,16 @@ WORKDIR /app
 # Step 3: Copy the Gradle wrapper files
 COPY gradlew .
 COPY gradle gradle/
+COPY settings.gradle .
+COPY build.gradle .
 
 # Step 4: Copy the source code
 COPY src src/
 
 # Step 5: Set executable permission for gradlew
 RUN chmod +x gradlew
-
+RUN ls /
+RUN ls .
 # Step 6: Run the Gradle build using the wrapper
 RUN ./gradlew clean build -x test --no-daemon
 

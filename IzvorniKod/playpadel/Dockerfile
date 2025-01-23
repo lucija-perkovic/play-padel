@@ -27,9 +27,9 @@ WORKDIR /app
 # Step 9: Copy the JAR file from the build stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
-ENV PORT 8080
+ENV PORT=8080
 # Step 10: Expose port 8080
-EXPOSE 8080
+EXPOSE $PORT
 
 # Step 11: Define the entrypoint to run the Spring Boot application
 ENTRYPOINT ["java", "-jar", "app.jar"]

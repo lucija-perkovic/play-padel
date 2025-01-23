@@ -15,8 +15,6 @@ COPY src src/
 
 # Step 5: Set executable permission for gradlew
 RUN chmod +x gradlew
-RUN ls /
-RUN ls .
 # Step 6: Run the Gradle build using the wrapper
 RUN ./gradlew clean build -x test --no-daemon
 
@@ -29,6 +27,7 @@ WORKDIR /app
 # Step 9: Copy the JAR file from the build stage
 COPY --from=build /app/build/libs/*.jar app.jar
 
+ENV PORT 8080
 # Step 10: Expose port 8080
 EXPOSE 8080
 

@@ -15,7 +15,7 @@ public class PadelCourtBooking {
     private Timestamp startBookingTime;
     @Column(name = "end_booking_time")
     private Timestamp endBookingTime;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "booking_user_id")
     private PlayPadelUser bookingUser;
 
@@ -26,6 +26,14 @@ public class PadelCourtBooking {
         this.startBookingTime = startBookingTime;
         this.endBookingTime = endBookingTime;
         this.bookingUser = bookingUser;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Timestamp getStartBookingTime() {

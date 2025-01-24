@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 
 interface LoginProps {
-  onAuthChange: (isAuthenticated: boolean) => void; // Accept the onAuthChange prop
+  onAuthChange: (isAuthenticated: boolean) => void;
 }
 
 function Login({ onAuthChange }: LoginProps) {
@@ -32,7 +32,7 @@ function Login({ onAuthChange }: LoginProps) {
         localStorage.setItem("jwtToken", token); 
         localStorage.setItem("userId", id);
         localStorage.setItem("userType", userType); 
-        onAuthChange(true);  // Update authentication status
+        onAuthChange(true);
         navigate("/home"); 
       } else {
         setError("Login failed. Please try again.");

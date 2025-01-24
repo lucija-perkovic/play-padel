@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 
 interface RegisterProps {
-  onAuthChange: (isAuthenticated: boolean) => void; // Accept onAuthChange prop
+  onAuthChange: (isAuthenticated: boolean) => void;
 }
 
 function Register({ onAuthChange }: RegisterProps) {
@@ -47,20 +47,19 @@ function Register({ onAuthChange }: RegisterProps) {
       const response = await api.post("/user/register", formData);
       
       if (response.status === 200) {
-        // After successful registration, log the user in automatically
         const loginResponse = await api.post("/user/login", {
           username: formData.username,
           password: formData.password,
         });
 
         if (loginResponse.status === 200) {
-          const { token, userDto } = loginResponse.data;  // Fix: use loginResponse, not registration response
+          const { token, userDto } = loginResponse.data;
           const { id, userType } = userDto;
     
           localStorage.setItem("jwtToken", token); 
           localStorage.setItem("userId", id);
           localStorage.setItem("userType", userType); 
-          onAuthChange(true); // Update authentication status
+          onAuthChange(true);
           navigate("/home");
         } else {
           setError("Login failed. Please try again.");
@@ -82,7 +81,6 @@ function Register({ onAuthChange }: RegisterProps) {
         <form onSubmit={handleRegister}>
           {Object.keys(formData).map((key) => {
             if (key === "userType") {
-              // Special case for dropdown (userType)
               return (
                 <div key={key} className="mb-3">
                   <label className="form-label">User Type:</label>
@@ -102,7 +100,6 @@ function Register({ onAuthChange }: RegisterProps) {
             }
 
             if (key === "padelHallName" && formData.userType !== "OWNER") {
-              // Don't render padelHallName field if the user type is not "OWNER"
               return null;
             }
 

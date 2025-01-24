@@ -152,10 +152,10 @@ function HomePage() {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Navbar remains at the top */}
+      {}
       <Navbar setIsLoginPage={() => false} />
 
-      {/* Content centered in the remaining space */}
+      {}
       <div className="container d-flex justify-content-center align-items-center flex-grow-1">
         <div className="row w-100 p-4 justify-content-center">
           <div className="col-12 col-md-12 col-lg-10 bg-white rounded shadow-lg p-4">
@@ -163,7 +163,7 @@ function HomePage() {
               <p>Loading calendar...</p>
             ) : (
               <div>
-                {/* Dropdown to select a court */}
+                {}
                 <div className="mb-4">
                   <select
                     className="form-control mb-2"
@@ -179,7 +179,7 @@ function HomePage() {
                   </select>
                 </div>
 
-                {/* Calendar */}
+                {}
                 <div className="mb-4">
                   <Calendar
                     onChange={(date) => setSelectedDate(date as Date)}
@@ -211,7 +211,7 @@ function HomePage() {
                   )}
                 </div>
 
-                {/* Show taken appointments for the selected day */}
+                {}
                 <div className="mt-4">
                   <h4>Reserved Appointments:</h4>
                   {filteredReservations.length > 0 ? (
@@ -237,7 +237,7 @@ function HomePage() {
                   )}
                 </div>
 
-                {/* Booking form */}
+                {}
                 <div className="mt-4">
                   <h4>Book Court</h4>
                   <div className="mb-2">

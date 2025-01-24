@@ -1,0 +1,310 @@
+
+@startuml
+class PlayPadelUser {
+    + id : Long
+    + username : String
+    + password : String
+    + firstName : String
+    + lastName : String
+    + userType : UserType
+    + contactNumber : String
+    + address : String
+    + padelHallName : String
+}
+
+class PadelCourt {
+    + id : Long
+    + location : String
+    + courtType : CourtType
+    + openingTime : Timestamp
+    + closingTime : Timestamp
+}
+
+PlayPadelUser "1" --> "0..*" PadelCourt : "padelCourtList"
+class PadelCourtBooking {
+    + id : Long
+    + startBookingTime : Timestamp
+    + endBookingTime : Timestamp
+}
+
+class PlayPadelUser {
+    + id : Long
+    + username : String
+    + password : String
+    + firstName : String
+    + lastName : String
+    + userType : UserType
+    + contactNumber : String
+    + address : String
+    + padelHallName : String
+}
+
+PadelCourtBooking "0..*" --> "1" PlayPadelUser : "bookingUser"
+class PadelCourt {
+    + id : Long
+    + location : String
+    + courtType : CourtType
+    + openingTime : Timestamp
+    + closingTime : Timestamp
+}
+
+class PadelCourtBooking {
+    + id : Long
+    + startBookingTime : Timestamp
+    + endBookingTime : Timestamp
+}
+
+PadelCourt "1" --> "0..*" PadelCourtBooking : "padelCourtBookingList"
+class CourtController {
+    + createCourt(command: CreateCourtCommand, userId: Long) : ResponseEntity<Object>
+    + deleteCourt(courtId: Long) : ResponseEntity<Object>
+    + addBooking(command: CreateBookingCommand, courtId: Long) : ResponseEntity<Object>
+    + deleteBooking(bookingId: Long) : ResponseEntity<Object>
+    + updateCourt(command: CreateCourtCommand, courtId: Long) : ResponseEntity<Object>
+    + getAllCourts() : ResponseEntity<Object>
+    + getCourtByUser(userId: Long) : ResponseEntity<Object>
+    + getCourtReservations(courtId: Long) : ResponseEntity<Object>
+}
+
+class CourtService {
+    + createCourt(command: CreateCourtCommand, userId: Long) : Object
+    + deleteCourt(courtId: Long) : void
+    + createBooking(command: CreateBookingCommand, courtId: Long) : void
+    + deleteBooking(bookingId: Long) : void
+    + updateCourt(command: CreateCourtCommand, courtId: Long) : void
+    + getAllCourts() : Object
+    + getCourtsByUser(userId: Long) : Object
+    + getCourtReservations(courtId: Long) : Object
+}
+
+CourtController --> CourtService : "courtService"
+class UserController {
+    + login(command: UserLoginCommand) : ResponseEntity<LoginDto>
+    + register(command: UserRegisterCommand) : ResponseEntity<Object>
+    + delete(id: Long) : ResponseEntity<Object>
+    + getAllUsers() : ResponseEntity<Object>
+}
+
+class UserService {
+    + login(command: UserLoginCommand) : LoginDto
+    + register(command: UserRegisterCommand) : void
+    + delete(id: Long) : void
+    + getAllUsers() : Object
+}
+
+UserController --> UserService : "userService"
+enum CourtType {
+    INDOOR
+    OUTDOOR
+}
+enum UserType {
+    ADMIN
+    PLAYER
+    OWNER
+}
+class CreateBookingCommand {
+    - Long bookingUserId
+    - Timestamp startBookingTime
+    - Timestamp endBookingTime
+    + CreateBookingCommand(bookingUserId: Long, startBookingTime: Timestamp, endBookingTime: Timestamp)
+    + getBookingUserId() : Long
+    + setBookingUserId(bookingUserId: Long) : void
+    + getStartBookingTime() : Timestamp
+    + setStartBookingTime(startBookingTime: Timestamp) : void
+    + getEndBookingTime() : Timestamp
+    + setEndBookingTime(endBookingTime: Timestamp) : void
+}
+class CreateCourtCommand {
+    - String location
+    - CourtType courtType
+    - Timestamp openingTime
+    - Timestamp closingTime
+    + CreateCourtCommand(location: String, courtType: CourtType, openingTime: Timestamp, closingTime: Timestamp)
+    + getLocation() : String
+    + setLocation(location: String) : void
+    + getCourtType() : CourtType
+    + setCourtType(courtType: CourtType) : void
+    + getOpeningTime() : Timestamp
+    + setOpeningTime(openingTime: Timestamp) : void
+    + getClosingTime() : Timestamp
+    + setClosingTime(closingTime: Timestamp) : void
+}
+class UserLoginCommand {
+    - String username
+    - String password
+    + UserLoginCommand()
+    + UserLoginCommand(username: String, password: String)
+    + getUsername() : String
+    + setUsername(username: String) : void
+    + getPassword() : String
+    + setPassword(password: String) : void
+}
+class UserRegisterCommand {
+    - String username
+    - String password
+    - String firstName
+    - String lastName
+    - UserType userType
+    - String contactNumber
+    - String address
+    - String padelHallName
+    + UserRegisterCommand()
+    + getUsername() : String
+    + setUsername(username: String) : void
+    + getPassword() : String
+    + setPassword(password: String) : void
+    + getFirstName() : String
+    + setFirstName(firstName: String) : void
+    + getLastName() : String
+    + setLastName(lastName: String) : void
+    + getUserType() : UserType
+    + setUserType(userType: UserType) : void
+    + getContactNumber() : String
+    + setContactNumber(contactNumber: String) : void
+    + getAddress() : String
+    + setAddress(address: String) : void
+    + getPadelHallName() : String
+    + setPadelHallName(padelHallName: String) : void
+}
+class BookingDto {
+    - Long id
+    - Timestamp start
+    - Timestamp end
+    - Long bookingUserId
+    + BookingDto(id: Long, start: Timestamp, end: Timestamp, bookingUserId: Long)
+    + getId() : Long
+    + setId(id: Long) : void
+    + getStart() : Timestamp
+    + setStart(start: Timestamp) : void
+    + getEnd() : Timestamp
+    + setEnd(end: Timestamp) : void
+    + getBookingUserId() : Long
+    + setBookingUserId(bookingUserId: Long) : void
+}
+class CourtDto {
+    - Long id
+    - String location
+    - CourtType courtType
+    + CourtDto(id: Long, location: String, courtType: CourtType)
+    + getId() : Long
+    + setId(id: Long) : void
+    + getLocation() : String
+    + setLocation(location: String) : void
+    + getCourtType() : CourtType
+    + setCourtType(courtType: CourtType) : void
+}
+class LoginDto {
+    - String token
+    - UserDto userDto
+    + LoginDto(token: String, userDto: UserDto)
+    + getToken() : String
+    + setToken(token: String) : void
+    + getUserDto() : UserDto
+    + setUserDto(userDto: UserDto) : void
+}
+class UserDto {
+    - Long id
+    - String firstName
+    - String lastName
+    - UserType userType
+    - String contactNumber
+    - String address
+    - String padelHallName
+    + UserDto(id: Long, firstName: String, lastName: String, userType: UserType, contactNumber: String, address: String, padelHallName: String)
+    + getId() : Long
+    + setId(id: Long) : void
+    + getFirstName() : String
+    + setFirstName(firstName: String) : void
+    + getLastName() : String
+    + setLastName(lastName: String) : void
+    + getUserType() : UserType
+    + setUserType(userType: UserType) : void
+    + getContactNumber() : String
+    + setContactNumber(contactNumber: String) : void
+    + getAddress() : String
+    + setAddress(address: String) : void
+    + getPadelHallName() : String
+    + setPadelHallName(padelHallName: String) : void
+}
+interface CourtService {
+    + createCourt(command: CreateCourtCommand, userId: Long) : CourtDto
+    + createBooking(command: CreateBookingCommand, courtId: Long) : void
+    + deleteBooking(bookingId: Long) : void
+    + deleteCourt(courtId: Long) : void
+    + updateCourt(command: CreateCourtCommand, courtId: Long) : void
+    + getAllCourts() : List<CourtDto>
+    + getCourtReservations(courtId: Long) : List<BookingDto>
+    + getCourtsByUser(userId: Long) : List<CourtDto>
+}
+interface UserService {
+    + login(command: UserLoginCommand) : LoginDto
+    + register(command: UserRegisterCommand) : void
+    + delete(id: Long) : void
+    + getAllUsers() : List<UserDto>
+}
+class CourtServiceImpl {
+    - padelCourtRepository: PadelCourtRepository
+    - padelCourtBookingRepository: PadelCourtBookingRepository
+    - playPadelUserRepository: PlayPadelRepository
+    + CourtServiceImpl(padelCourtRepository: PadelCourtRepository, padelCourtBookingRepository: PadelCourtBookingRepository, playPadelUserRepository: PlayPadelRepository)
+    + createCourt(command: CreateCourtCommand, userId: Long): CourtDto
+    + createBooking(command: CreateBookingCommand, courtId: Long): void
+    + deleteBooking(bookingId: Long): void
+    + deleteCourt(courtId: Long): void
+    + updateCourt(command: CreateCourtCommand, courtId: Long): void
+    + getAllCourts(): List<CourtDto>
+    + getCourtReservations(courtId: Long): List<BookingDto>
+    + getCourtsByUser(userId: Long): List<CourtDto>
+    - isBookingSlotAvailable(padelCourtBookingList: List<PadelCourtBooking>, commandStart: Timestamp, commandEnd: Timestamp): boolean
+}
+
+CourtServiceImpl ..|> CourtService : implements
+CourtServiceImpl ..> PadelCourtRepository : uses
+CourtServiceImpl ..> PadelCourtBookingRepository : uses
+CourtServiceImpl ..> PlayPadelRepository : uses
+class UserServiceImpl {
+    - LOGGER: Logger
+    - playPadelRepository: PlayPadelRepository
+    - passwordEncoder: PasswordEncoder
+    - jwtUtil: JwtUtil
+    - PHONE_NUMBER_REGEX: String
+    - PHONE_NUMBER_PATTERN: Pattern
+    + UserServiceImpl(playPadelRepository: PlayPadelRepository, passwordEncoder: PasswordEncoder, jwtUtil: JwtUtil)
+    + login(command: UserLoginCommand): LoginDto
+    + register(command: UserRegisterCommand): void
+    + delete(id: Long): void
+    + getAllUsers(): List<UserDto>
+    - isValidPhoneNumber(phoneNumber: String): boolean
+}
+
+UserServiceImpl ..|> UserService : implements
+UserServiceImpl ..> PlayPadelRepository : uses
+UserServiceImpl ..> PasswordEncoder : uses
+UserServiceImpl ..> JwtUtil : uses
+interface PadelCourtBookingRepository {
+    + findById(id: Long): Optional<PadelCourtBooking>
+    + save(entity: PadelCourtBooking): PadelCourtBooking
+    + deleteById(id: Long): void
+}
+
+
+PadelCourtBookingRepository ..> PadelCourtBooking : uses
+interface PadelCourtRepository {
+    + findById(id: Long): Optional<PadelCourt>
+    + save(entity: PadelCourt): PadelCourt
+    + deleteById(id: Long): void
+}
+
+PadelCourtRepository ..> PadelCourt : uses
+
+interface PlayPadelRepository {
+    + findPlayPadelUserByUsername(username: String): Optional<PlayPadelUser>
+    + findByUserTypeNot(userType: UserType): Optional<List<PlayPadelUser>>
+    + findById(id: Long): Optional<PlayPadelUser>
+    + save(entity: PlayPadelUser): PlayPadelUser
+    + deleteById(id: Long): void
+}
+
+PlayPadelRepository ..> PlayPadelUser : uses
+PlayPadelRepository ..> UserType : uses
+@enduml

@@ -7,7 +7,7 @@ function Register() {
     password: "",
     firstName: "",
     lastName: "",
-    userType: "",  // Dropdown will use this value
+    userType: "", 
     contactNumber: "",
     address: "",
     padelHallName: "",
@@ -73,7 +73,6 @@ function Register() {
         <form onSubmit={handleRegister}>
           {Object.keys(formData).map((key) => {
             if (key === "userType") {
-              // Special case for dropdown (userType)
               return (
                 <div key={key} className="mb-3">
                   <label className="form-label">User Type:</label>
@@ -93,7 +92,6 @@ function Register() {
             }
 
             if (key === "padelHallName" && formData.userType !== "OWNER") {
-              // Don't render padelHallName field if the user type is not "OWNER"
               return null;
             }
 

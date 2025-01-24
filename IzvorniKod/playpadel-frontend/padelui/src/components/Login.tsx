@@ -12,10 +12,9 @@ function Login() {
   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // Reset error message before the request
+    setError(null);
   
     try {
-      // Use the custom Axios instance to make the POST request
       const response = await api.post("/user/login", {
         username,
         password,

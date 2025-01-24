@@ -9,8 +9,8 @@ interface Event {
   title: string;
   start: Date;
   end: Date;
-  reserved: boolean; // true if reserved, false if available
-  courtId?: number; // Court ID associated with the event
+  reserved: boolean;
+  courtId?: number;
 }
 
 interface Court {
@@ -21,24 +21,24 @@ interface Court {
 
 interface Reservation {
   id: number;
-  start: string; // ISO 8601 string format
-  end: string;   // ISO 8601 string format
-  bookingUserId: number; // Added bookingUserId to the reservation
+  start: string;
+  end: string;
+  bookingUserId: number;
 }
 
 function HomePage() {
   const [events, setEvents] = useState<Event[]>([]);
-  const [courts, setCourts] = useState<Court[]>([]); // State for courts
-  const [reservations, setReservations] = useState<Reservation[]>([]); // State for reservations
+  const [courts, setCourts] = useState<Court[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedCourt, setSelectedCourt] = useState<number | null>(null); // State for selected court
+  const [selectedCourt, setSelectedCourt] = useState<number | null>(null);
   const [bookingTime, setBookingTime] = useState<{ start: Date | null; end: Date | null }>({
     start: null,
     end: null,
   });
 
-  // Fetch events and courts from the backend API
+
   useEffect(() => {
     const fetchCourts = async () => {
       try {
@@ -62,14 +62,14 @@ function HomePage() {
     }
   };
 
-  // Fetch reservations when court is selected
+
   useEffect(() => {
     if (selectedCourt !== null) {
       fetchReservations();
     }
   }, [selectedCourt]);
 
-  // Handle booking a court
+
   const handleBooking = async () => {
     if (!bookingTime.start || !bookingTime.end || selectedCourt === null) {
       alert('Please select a valid time range for the booking.');
@@ -83,21 +83,21 @@ function HomePage() {
     }
 
     try {
-      // Prepare payload
+
       const payload = {
         bookingUserId: userId,
         startBookingTime: new Date(bookingTime.start).getTime(),
         endBookingTime: new Date(bookingTime.end).getTime(),
       };
 
-      // Send PUT request to book the court
+
       const response = await api.put(`/court/booking/${selectedCourt}`, payload);
 
       if (response.status === 200) {
         alert('Booking successful!');
         setReservations([]); 
         await fetchReservations();
-        setSelectedDate(new Date(bookingTime.start)); // Update the calendar to the selected booking date
+        setSelectedDate(new Date(bookingTime.start));
       } else {
         alert('Failed to book the court.');
       }
@@ -107,7 +107,7 @@ function HomePage() {
     }
   };
 
-  // Delete a reservation
+
   const handleDeleteReservation = async (bookingId: number) => {
     const userId = localStorage.getItem('userId');
     if (!userId) {
@@ -119,7 +119,7 @@ function HomePage() {
       const response = await api.delete(`/court/booking/${bookingId}`);
       if (response.status === 200) {
         alert('Booking deleted successfully!');
-        setReservations(reservations.filter((res) => res.id !== bookingId)); // Remove the deleted booking from the state
+        setReservations(reservations.filter((res) => res.id !== bookingId));
       } else {
         alert('Failed to delete the booking.');
       }
@@ -129,19 +129,18 @@ function HomePage() {
     }
   };
 
-  // Filter events based on the selected date
   const filteredEvents = events.filter(
     (event) =>
       new Date(event.start).toDateString() === selectedDate.toDateString()
   );
 
-  // Filter reservations based on the selected date
+
   const filteredReservations = reservations.filter((reservation) => {
     const reservationStartDate = new Date(reservation.start);
     return reservationStartDate.toDateString() === selectedDate.toDateString();
   });
 
-  // Function to format selectedDate to fit datetime-local format (yyyy-MM-ddThh:mm)
+
   const formatDateToLocalInput = (date: Date) => {
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, '0');

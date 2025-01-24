@@ -41,13 +41,13 @@ const CourtsPage = () => {
 
   return (
     <>
-      {/* Navbar */}
+      {}
       <Navbar setIsLoginPage={() => false} />
 
-      {/* Main Content */}
+      {}
       <div className="container-fluid mt-5">
         <div className="row">
-          {/* Left Side: List of Courts */}
+          {}
           <div className="col-md-6">
             <h3>Courts</h3>
             {error && <div className="alert alert-danger">{error}</div>}
@@ -76,7 +76,7 @@ const CourtsPage = () => {
             </ul>
           </div>
 
-          {/* Right Side: Create Court Form */}
+          {}
           <div className="col-md-6">
             <CreatePadelCourt onCourtCreated={fetchCourts} />
           </div>

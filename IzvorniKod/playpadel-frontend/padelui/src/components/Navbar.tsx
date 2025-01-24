@@ -8,13 +8,12 @@ function Navbar({ setIsLoginPage }: NavbarProps) {
   const navigate = useNavigate();
   const userType = localStorage.getItem("userType");  
 
-  // Function to check if the user is authenticated
+
   const isAuthenticated = () => {
     const token = localStorage.getItem("jwtToken");
-    return !!token;  // Returns true if token exists, false otherwise
+    return !!token;  
   };
 
-  // Handle logout action
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");  
     localStorage.removeItem("userId");
@@ -25,13 +24,13 @@ function Navbar({ setIsLoginPage }: NavbarProps) {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-danger w-100">
       <div className="container-fluid">
-        {/* Navbar brand or logo */}
+
         <a className="navbar-brand text-light" href="/">
           PadelApp
         </a>
 
         <div className="ms-auto d-flex align-items-center">
-          {/* Show "Courts" button if userType is OWNER */}
+          {}
           {isAuthenticated() && userType === "OWNER" && (
             <button
               onClick={() => navigate("/court")}
@@ -42,12 +41,10 @@ function Navbar({ setIsLoginPage }: NavbarProps) {
           )}
 
           {isAuthenticated() ? (
-            // Show Logout button if the user is authenticated
             <button onClick={handleLogout} className="btn btn-light mx-2">
               Logout
             </button>
           ) : (
-            // Show Login and Register buttons if the user is not authenticated
             <>
               <button
                 onClick={() => setIsLoginPage(true)}

@@ -3,7 +3,11 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import Navbar from "../components/Navbar";
 
-function AuthPage() {
+interface AuthPageProps {
+  onAuthChange: (isAuthenticated: boolean) => void;
+}
+
+function AuthPage({ onAuthChange }: AuthPageProps) {
   const [isLoginPage, setIsLoginPage] = useState(true);
 
   return (
@@ -11,7 +15,11 @@ function AuthPage() {
       <Navbar setIsLoginPage={setIsLoginPage} />
       <div className="row justify-content-center mt-4">
         <div className="col-md-6">
-          {isLoginPage ? <Login /> : <Register />}
+          {isLoginPage ? (
+            <Login onAuthChange={onAuthChange} />
+          ) : (
+            <Register onAuthChange={onAuthChange} />
+          )}
         </div>
       </div>
     </div>

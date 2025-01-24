@@ -2,7 +2,11 @@ import { useState, FormEvent } from "react";
 import { useNavigate } from 'react-router-dom';  
 import api from '../utils/axios';
 
-function Login() {
+interface LoginProps {
+  onAuthChange: (isAuthenticated: boolean) => void; // Accept the onAuthChange prop
+}
+
+function Login({ onAuthChange }: LoginProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,7 +25,6 @@ function Login() {
       });
   
       if (response.status === 200) {
-
         console.log("Login successful:", response.data);
         const { token, userDto } = response.data;
         const { id, userType } = userDto;
@@ -29,6 +32,7 @@ function Login() {
         localStorage.setItem("jwtToken", token); 
         localStorage.setItem("userId", id);
         localStorage.setItem("userType", userType); 
+        onAuthChange(true);  // Update authentication status
         navigate("/home"); 
       } else {
         setError("Login failed. Please try again.");

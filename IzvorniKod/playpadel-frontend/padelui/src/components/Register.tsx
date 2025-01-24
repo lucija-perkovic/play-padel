@@ -1,19 +1,25 @@
 import { useState, FormEvent } from "react";
+import { useNavigate } from 'react-router-dom';  
 import api from '../utils/axios';
 
-function Register() {
+interface RegisterProps {
+  onAuthChange: (isAuthenticated: boolean) => void; // Accept onAuthChange prop
+}
+
+function Register({ onAuthChange }: RegisterProps) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
     firstName: "",
     lastName: "",
-    userType: "", 
+    userType: "",
     contactNumber: "",
     address: "",
     padelHallName: "",
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -41,18 +47,21 @@ function Register() {
       const response = await api.post("/user/register", formData);
       
       if (response.status === 200) {
+        // After successful registration, log the user in automatically
         const loginResponse = await api.post("/user/login", {
           username: formData.username,
           password: formData.password,
         });
 
         if (loginResponse.status === 200) {
-          const { token, userDto } = response.data;
+          const { token, userDto } = loginResponse.data;  // Fix: use loginResponse, not registration response
           const { id, userType } = userDto;
     
           localStorage.setItem("jwtToken", token); 
           localStorage.setItem("userId", id);
           localStorage.setItem("userType", userType); 
+          onAuthChange(true); // Update authentication status
+          navigate("/home");
         } else {
           setError("Login failed. Please try again.");
         }
@@ -73,6 +82,7 @@ function Register() {
         <form onSubmit={handleRegister}>
           {Object.keys(formData).map((key) => {
             if (key === "userType") {
+              // Special case for dropdown (userType)
               return (
                 <div key={key} className="mb-3">
                   <label className="form-label">User Type:</label>
@@ -92,6 +102,7 @@ function Register() {
             }
 
             if (key === "padelHallName" && formData.userType !== "OWNER") {
+              // Don't render padelHallName field if the user type is not "OWNER"
               return null;
             }
 

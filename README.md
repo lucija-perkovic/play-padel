@@ -1,3 +1,5 @@
+Aplikacija je deployana na adresi: https://playpadel.duckdns.org/home
+
 # Programsko inženjerstvo
 
 > Ime projekta u naslovu ima cilj opisati namjenu projekta te pomoći u podizanju početnog interesa za projekt prezentirajući osnovnu svrhu projekta.

@@ -59,21 +59,20 @@ Kratko opisati cilj Vašeg projekta. Vaša motivacija?  (Napomena: odgovor nije 
 
 # Tehnologije
 - backend:
-  - Python3
-  - fastAPI
-  - MongoDB
+  - Java
+  - SpringBoot
+  - PostGreSQL
 - frontend: 
   - React
   - TypeScript
-  - TailwindCSS
-  - Next.js
+  - Bootstrap
 
 #Instalcija
 # Članovi tima 
 > Popis članova tima/linkovi/ glavni doprinos
 - Vinko Grančić
 - Lucija Perković
-- Mihael Kukelšćak
+- Mihael Kukelšćak 
 - Luka Oković
 - Ivan Šimunić
 
